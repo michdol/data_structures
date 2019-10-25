@@ -37,7 +37,7 @@ class StackLL(object):
 
         while next_:
             count += 1
-            next_ = self.next
+            next_ = next_.next
         return count
 
     @property
@@ -47,6 +47,19 @@ class StackLL(object):
     @property
     def peek(self):
         return self.__top.data
+
+    @property
+    def is_sorted(self):
+        if self.top is None:
+            return True
+        is_sorted = True
+        current = self.top
+        while current.next:
+            is_sorted = current.data > current.next.data
+            if not is_sorted:
+                return False
+            current = current.next
+        return is_sorted
 
     def push(self, data):
         if self.__top is None:
@@ -75,6 +88,29 @@ class StackLL(object):
 
         self.__top.next = None
         self.__top = previous
+
+    def delete_mid(self, current, init_size):
+        if self.is_empty or current == init_size:
+            return
+
+        top = self.pop()
+
+        self.delete_mid(current + 1, init_size)
+
+        if current != init_size // 2:
+            self.push(top)
+
+    def sorted_with_stack(self):
+        tmp_stack = StackLL()
+        while not self.is_empty:
+            tmp = self.pop()
+            while not tmp_stack.is_empty and tmp_stack.peek > tmp:
+                self.push(tmp_stack.pop())
+            tmp_stack.push(tmp)
+        return tmp_stack
+
+    def area_of_histogram(self):
+        assert True is False, "https://www.geeksforgeeks.org/largest-rectangle-under-histogram/"
 
 
 class Stack(object):

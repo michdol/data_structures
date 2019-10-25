@@ -50,6 +50,76 @@ class StackLLTest(TestCase):
         self.assertEqual(s.top.next.next.data, 3)
         self.assertIsNone(s.top.next.next.next)
 
+    def test_delete_mid(self):
+        s = StackLL()
+        s.push(1)
+        s.push(2)
+        s.push(3)
+
+        s.delete_mid(0, s.size)
+
+        self.assertEqual(s.size, 2)
+        self.assertEqual(s.top.data, 3)
+        self.assertEqual(s.top.next.data, 1)
+
+    def test_delete_mid_even(self):
+        s = StackLL()
+        s.push(1)
+        s.push(2)
+        s.push(3)
+        s.push(4)
+
+        s.delete_mid(0, s.size)
+
+        self.assertEqual(s.size, 3)
+        self.assertEqual(s.top.data, 4)
+        self.assertEqual(s.top.next.data, 3)
+        self.assertEqual(s.top.next.next.data, 1)
+
+    def test_sorted_with_stack(self):
+        s = StackLL()
+        s.push(3)
+        s.push(4)
+        s.push(2)
+        s.push(5)
+        s.push(1)
+
+        sorted_stack = s.sorted_with_stack()
+        current = sorted_stack.top
+        while current.next:
+            self.assertGreater(current.data, current.next.data)
+            current = current.next
+
+    def test_is_sorted(self):
+        s = StackLL()
+        s.push(1)
+        s.push(2)
+        s.push(3)
+
+        self.assertTrue(s.is_sorted)
+
+    def test_is_sorted_false(self):
+        s = StackLL()
+        s.push(1)
+        s.push(2)
+        s.push(1)
+        s.push(4)
+
+        self.assertFalse(s.is_sorted)
+
+    def test_is_sorted_false_last_item(self):
+        s = StackLL()
+        s.push(2)
+        s.push(1)
+        s.push(2)
+        s.push(4)
+
+        self.assertFalse(s.is_sorted)
+
+    def test_area_of_histogram(self):
+        s = StackLL()
+        s.area_of_histogram()
+
 
 class StackTest(TestCase):
     def test___init__(self):
