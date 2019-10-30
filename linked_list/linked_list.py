@@ -1,4 +1,4 @@
-
+from operator import add, sub
 
 class Node(object):
     def __init__(self, data):
@@ -21,6 +21,9 @@ class LinkedList(object):
             current = current.next
         return count
 
+    def __len__(self):
+        return self.size
+
     def __contains__(self, item):
         current = self.head
         while current:
@@ -31,14 +34,20 @@ class LinkedList(object):
 
     def __getitem__(self, key):
         if not isinstance(key, int):
-            raise TypeError("Key should be integer")
+            raise TypeError("Index should be integer")
+        # Allow indexing from the end.
+        if key >= 0:
+            operator_ = add
+            current_index = 0
+        else:
+            operator_ = sub
+            current_index = -1
         current = self.head
-        current_index = 0
         while current:
             if current_index == key:
                 break
             current = current.next
-            current_index += 1
+            current_index = operator_(current_index, 1)
         try:
             return current.data
         # Run out of nodes
@@ -51,6 +60,8 @@ class LinkedList(object):
         self.head = new_node
         if new_node.next:
             new_node.next.previous = new_node
+        if self.tail is None:
+            self.tail = new_node
 
     def delete(self, key):
         current = self.head
@@ -74,6 +85,8 @@ class LinkedList(object):
         next_ = current.next
         if previous:
             previous.next = next_
+            if current is self.tail:
+                self.tail = previous
         if next_:
             next_.previous = previous
         del current

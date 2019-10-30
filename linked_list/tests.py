@@ -13,6 +13,7 @@ class LinkedListTest(TestCase):
     def test_size(self):
         l = self._create_ll()
         self.assertEqual(l.size, 5)
+        self.assertEqual(len(l), 5)
 
     def test_push(self):
         l = LinkedList()
@@ -103,6 +104,18 @@ class LinkedListTest(TestCase):
 
         self.assertEqual(l.size, 0)
         self.assertIsNone(l.head)
+
+    def test_delete_tail(self):
+        l = LinkedList()
+        l.push(3)
+        l.push(2)
+        l.push(1)
+
+        l.delete(3)
+
+        self.assertEqual(l.head.data, 1)
+        self.assertIsNone(l.head.next.next)
+        self.assertIs(l.tail, l.head.next)
 
     def test_delete_node(self):
         l = LinkedList()
