@@ -126,3 +126,39 @@ class LinkedList(object):
         while current:
             yield current
             current = current.next
+
+    def reverse(self):
+        """
+        3   - head, current
+        2           next_
+        1   - tail
+
+
+          head              tail
+         _____      _____       _____ 
+        |  |  | 1> |  |  |  2> |  |  | 3>
+        |  |  |    |  |  |     |  |  | 
+        ------     ------      ------
+
+        previous    current     next_
+
+          head              tail
+         _____      _____       _____ 
+        |  |  |    |  |  |     |  |  | 3>
+        |  |  | <2 |  |  |  <- |  |  | <-
+        ------     ------      ------
+
+                   previous    current     next_
+
+        """
+        previous = self.head
+        current = previous.next
+        next_ = current.next
+        previous.next = None
+        while current.next:
+            current.next = previous
+            previous = current
+            current = next_
+            next_ = current.next
+        current.next = previous
+        self.head = current

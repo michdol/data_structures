@@ -228,6 +228,22 @@ class LinkedListTest(TestCase):
             expected -= 1
         self.assertEqual(expected, 0)
 
+    def test_reverse(self):
+        l = LinkedList()
+        l.push(1)
+        l.push(2)
+        l.push(3)
+
+        l.reverse()
+
+        print()
+        for i in l:
+            print(i.data)
+        print()
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 2)
+        self.assertEqual(l[2], 3)
+
 
 if __name__ == '__main__':
     main()
