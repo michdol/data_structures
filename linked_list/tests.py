@@ -233,16 +233,107 @@ class LinkedListTest(TestCase):
         l.push(1)
         l.push(2)
         l.push(3)
+        l.push(4)
+        l.push(5)
 
         l.reverse()
 
-        print()
-        for i in l:
-            print(i.data)
-        print()
         self.assertEqual(l[0], 1)
         self.assertEqual(l[1], 2)
         self.assertEqual(l[2], 3)
+        self.assertEqual(l[3], 4)
+        self.assertEqual(l[4], 5)
+
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.head.next.data, 2)
+        self.assertEqual(l.tail.data, 5)
+
+        self.assertEqual(l.head.next.previous.data, 1)
+        self.assertEqual(l.tail.previous.next.data, 5)
+        self.assertEqual(l.tail.previous.data, 4)
+
+    def test_reverse_empty_list(self):
+        l = LinkedList()
+        l.reverse()
+
+    def test_reverse_one_element_list(self):
+        l = LinkedList()
+        l.push(1)
+
+        l.reverse()
+
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.tail.data, 1)
+
+    def test_reverse_two_elements_list(self):
+        l = LinkedList()
+        l.push(1)
+        l.push(2)
+
+        l.reverse()
+
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 2)
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.head.next.data, 2)
+        self.assertEqual(l.tail.previous, l.head)
+
+        self.assertEqual(l.head.next, l.tail)
+
+    def test_index(self):
+        l = LinkedList()
+        l.push(1)
+        l.push(2)
+        l.push(3)
+        l.push(4)
+
+        self.assertEqual(l.index(1), 3)
+        self.assertEqual(l.index(2), 2)
+        self.assertEqual(l.index(3), 1)
+        self.assertEqual(l.index(4), 0)
+
+    def test_index_key_not_in_the_list(self):
+        l = LinkedList()
+        with self.assertRaises(ValueError):
+            l.index(1)
+
+        l.push(1)
+        with self.assertRaises(ValueError):
+            l.index(2)
+
+    def test_insert(self):
+        l = LinkedList()
+        l.push(1)
+
+        l.insert(0, 2)
+        self.assertEqual(l.head.data, 2)
+        self.assertEqual(l.head.next.data, 1)
+        self.assertEqual(l.tail.data, 1)
+        self.assertIs(l.head.next, l.tail)
+
+    def test_insert_empty_list(self):
+        l = LinkedList()
+        
+        l.insert(5, 1)
+
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.tail.data, 1)
+        self.assertIs(l.head, l.tail)
+
+    def test_insert_in_the_middle(self):
+        l = LinkedList()
+        l.push(3)
+        l.push(1)
+
+        l.insert(1, 2)
+
+        self.assertEqual(l.head.next.data, 2)
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 2)
+        self.assertEqual(l[2], 3)
+
+        self.assertEqual(l.tail.previous.data, 2)
+        self.assertIs(l.head.next.next, l.tail)
 
 
 if __name__ == '__main__':

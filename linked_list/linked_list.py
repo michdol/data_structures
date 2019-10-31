@@ -128,37 +128,55 @@ class LinkedList(object):
             current = current.next
 
     def reverse(self):
-        """
-        3   - head, current
-        2           next_
-        1   - tail
-
-
-          head              tail
-         _____      _____       _____ 
-        |  |  | 1> |  |  |  2> |  |  | 3>
-        |  |  |    |  |  |     |  |  | 
-        ------     ------      ------
-
-        previous    current     next_
-
-          head              tail
-         _____      _____       _____ 
-        |  |  |    |  |  |     |  |  | 3>
-        |  |  | <2 |  |  |  <- |  |  | <-
-        ------     ------      ------
-
-                   previous    current     next_
-
-        """
+        # Empty or single element list
+        if not self.head or not self.head.next:
+            return
         previous = self.head
+        self.tail = previous
         current = previous.next
         next_ = current.next
         previous.next = None
+        previous.previous = current
         while current.next:
             current.next = previous
+            current.previous = next_
             previous = current
             current = next_
             next_ = current.next
         current.next = previous
+        current.previous = next_
         self.head = current
+
+    def index(self, key):
+        current = self.head
+        current_index = 0
+        while current:
+            if current.data == key:
+                return current_index
+            current = current.next
+            current_index += 1
+        raise ValueError("{} is not in the list".format(key))
+
+    def insert(self, position, key):
+        # Just insert, ignore the position
+        if not self.head:
+            self.head = Node(key)
+            self.tail = self.head
+            return
+
+        current = self.head
+        current_index = 0
+
+        while current and current_index != position:
+            if current_index == position:
+                break
+            current = current.next
+            current_index += 1
+
+        new_node = Node(key)
+        if current is self.head:
+            self.head = new_node
+        if current.previous:
+            current.previous.next = new_node
+        current.previous = new_node
+        new_node.next = current
