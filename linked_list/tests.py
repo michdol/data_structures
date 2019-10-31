@@ -335,6 +335,19 @@ class LinkedListTest(TestCase):
         self.assertEqual(l.tail.previous.data, 2)
         self.assertIs(l.head.next.next, l.tail)
 
+    def test_swap(self):
+        l = LinkedList()
+        l.push(1)
+        l.push(2)
+
+        l.swap(2, 1)
+
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.head.next.data, 2)
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 2)
+        self.assertEqual(l.tail.data, 2)
+
 
 if __name__ == '__main__':
     main()

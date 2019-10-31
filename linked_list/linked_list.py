@@ -158,7 +158,6 @@ class LinkedList(object):
         raise ValueError("{} is not in the list".format(key))
 
     def insert(self, position, key):
-        # Just insert, ignore the position
         if not self.head:
             self.head = Node(key)
             self.tail = self.head
@@ -180,3 +179,33 @@ class LinkedList(object):
             current.previous.next = new_node
         current.previous = new_node
         new_node.next = current
+
+    def swap(self, left, right):
+        current = self.head
+
+        left_node = None
+        right_node = None
+
+        while current:
+            if current.data == left:
+                left_node = current
+            elif current.data == right:
+                right_node = current
+            current = current.next
+
+        if left_node is self.head:
+            self.head = right_node
+        elif right_node is self.head:
+            self.head = left_node
+        if left_node is self.tail:
+            self.tail = right_node
+        elif right_node is self.tail:
+            self.tail = left_node
+
+        left_next = left_node.next
+        left_node.next = right_node.next
+        right_node.next = left_next
+
+        left_prev = left_node.previous
+        left_node.previous = right_node.previous
+        right_node.previous = left_prev
