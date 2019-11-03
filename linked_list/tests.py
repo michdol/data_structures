@@ -335,7 +335,7 @@ class LinkedListTest(TestCase):
         self.assertEqual(l.tail.previous.data, 2)
         self.assertIs(l.head.next.next, l.tail)
 
-    def test_swap(self):
+    def test_swap_adjacent_head_and_tail(self):
         l = LinkedList()
         l.push(1)
         l.push(2)
@@ -346,8 +346,23 @@ class LinkedListTest(TestCase):
         self.assertEqual(l.head.next.data, 2)
         self.assertEqual(l[0], 1)
         self.assertEqual(l[1], 2)
-        self.assertEqual(l.tail.data, 2)
 
+    def test_swap_second_and_fourth_out_of_five(self):
+        l = LinkedList()
+        l.push(5)
+        l.push(4)
+        l.push(3)
+        l.push(2)
+        l.push(1)
+
+        l.swap(2, 4)
+
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 4)
+        self.assertEqual(l[2], 3)
+        self.assertEqual(l[3], 2)
+        self.assertEqual(l[4], 5)
+        
 
 if __name__ == '__main__':
     main()

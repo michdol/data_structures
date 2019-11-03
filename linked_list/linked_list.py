@@ -181,31 +181,40 @@ class LinkedList(object):
         new_node.next = current
 
     def swap(self, left, right):
-        current = self.head
+        """
+        Method ignores tail and previous pointers
+        """
 
-        left_node = None
-        right_node = None
+        if left == right:
+            return
 
-        while current:
-            if current.data == left:
-                left_node = current
-            elif current.data == right:
-                right_node = current
-            current = current.next
+        prevL = None
+        currentL = self.head
+        while currentL and currentL.data != left:
+            prevL = currentL
+            currentL = currentL.next
 
-        if left_node is self.head:
-            self.head = right_node
-        elif right_node is self.head:
-            self.head = left_node
-        if left_node is self.tail:
-            self.tail = right_node
-        elif right_node is self.tail:
-            self.tail = left_node
+        prevR = None
+        currentR = self.head
+        while currentR and currentR.data != right:
+            prevR = currentR
+            currentR = currentR.next
 
-        left_next = left_node.next
-        left_node.next = right_node.next
-        right_node.next = left_next
+        if not currentL or not currentR:
+            return
+        
+        if prevL:
+            prevL.next = currentR
+        # Left element is head
+        else:
+            self.head = currentR
 
-        left_prev = left_node.previous
-        left_node.previous = right_node.previous
-        right_node.previous = left_prev
+        if prevR:
+            prevR.next = currentL
+        # Right element is head
+        else:
+            self.head = currentL
+
+        tmp = currentL.next
+        currentL.next = currentR.next
+        currentR.next = tmp
