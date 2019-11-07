@@ -695,14 +695,94 @@ class OrderedLinkedListTest(TestCase):
 
         l.add(1)   
 
-        self.assertEqual(len(l), 1)
+        self.assertEqual(len(l), 2)
         self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 1)
 
         l.add(2)
 
-        self.assertEqual(len(l), 2)
+        self.assertEqual(len(l), 3)
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 1)
+        self.assertEqual(l[2], 2)
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.head.next.data, 1)
+        self.assertEqual(l.head.next.next.data, 2)
+
+        l.add(4)
+        
+        self.assertEqual(len(l), 4)
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 1)
+        self.assertEqual(l[2], 2)
+        self.assertEqual(l[3], 4)
+
+        l.add(3)
+
+        self.assertEqual(len(l), 5)
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[1], 1)
+        self.assertEqual(l[2], 2)
+        self.assertEqual(l[3], 3)
+        self.assertEqual(l[4], 4)
+
+    def test_add_three_two_one(self):
+        l = OrderedLinkedList()
+        print('add 3')
+        l.add(3)
+        print('add 2')
+        l.add(2)
+        print('add 1')
+        l.add(1)
+
         self.assertEqual(l[0], 1)
         self.assertEqual(l[1], 2)
+        self.assertEqual(l[2], 3)
+
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.head.next.data, 2)
+        self.assertEqual(l.head.next.next.data, 3)
+
+    def test_delete(self):
+        l = OrderedLinkedList()
+        l.add(1)
+        l.add(2)
+        l.add(3)
+        l.add(4)
+
+        l.delete(3)
+
+        self.assertEqual(len(l), 3)
+
+        self.assertEqual(l.head.data, 1)
+        self.assertEqual(l.head.next.data, 2)
+        self.assertEqual(l.head.next.next.data, 4)
+
+    def test_search(self):
+        l = OrderedLinkedList()
+        l.add(1)
+        l.add(2)
+        l.add(3)
+        l.add(4)
+
+        self.assertEqual(l.search(1), 0)
+        self.assertEqual(l.search(2), 1)
+        self.assertEqual(l.search(3), 2)
+        self.assertEqual(l.search(4), 3)
+
+        with self.assertRaises(ValueError):
+            l.search(5)
+
+    def test_pop(self):
+        l = OrderedLinkedList()
+        l.add(3)
+        l.add(2)
+        l.add(1)
+
+        for i in l:
+            print(i.data)
+        ret = l.pop()
+        self.assertEqual(ret, 3)
 
 
 if __name__ == '__main__':
