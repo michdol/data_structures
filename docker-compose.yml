@@ -1,0 +1,9 @@
+version: '3'
+services:
+  datastructures:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: intrvds
+    volumes:
+      - ./:/intrv
