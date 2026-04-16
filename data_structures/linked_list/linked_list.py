@@ -33,12 +33,12 @@ class LinkedList:
         self._length += 1
 
     def get_last(self) -> Node | None:
+        if not self.head:
+            return None
         node = self.head
-        previous = None
-        while node:
-            previous = node
+        while node.next:
             node = node.next
-        return previous
+        return node
 
     def remove_first(self) -> Any:
         if self.head:
@@ -52,7 +52,7 @@ class LinkedList:
         if not self.head:
             return None
 
-        if self._length == 1:
+        if self.length == 1:
             data = self.head.data
             self._length -= 1
             self.head = None
