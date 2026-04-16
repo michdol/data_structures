@@ -108,3 +108,24 @@ class LinkedList:
     def peek_last(self) -> Any:
         last = self.get_last()
         return last.data if last else None
+
+    def remove_all(self, data: Any) -> int:
+        if not self.head:
+            return 0
+        count = 0
+        node = self.head
+        previous = node
+
+        while node:
+            if node.data == data:
+                count += 1
+                previous.next = node.next
+                if node is self.head:
+                    self.head = node.next
+                node = node.next
+                self._length -= 1
+                continue
+            previous = node
+            node = node.next
+
+        return count

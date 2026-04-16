@@ -250,3 +250,76 @@ def test_ll_peek_last():
     ll.append(2)
     ll.append(3)
     assert ll.peek_last() == 3
+
+
+def test_ll_remove_all_empty_list():
+    ll = LinkedList()
+
+    assert ll.remove_all(1) == 0
+
+    assert ll.length == 0
+
+
+def test_ll_remove_all_one_occurrence():
+    ll = LinkedList()
+
+    ll.append(1)
+    assert ll.remove_all(1) == 1
+    assert ll.length == 0
+
+
+def test_ll_remove_all_multiple_occurrences():
+    ll = LinkedList()
+
+    ll.append(2)
+    ll.append(1)
+    ll.append(3)
+    ll.append(4)
+    ll.append(1)
+    assert ll.remove_all(1) == 2
+    assert ll.length == 3
+    assert not ll.contains(1)
+    assert ll.peek() == 2
+    assert ll.peek_last() == 4
+
+
+def test_ll_remove_all_multiple_occurrences_target_is_head():
+    ll = LinkedList()
+
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+    ll.append(4)
+    ll.append(1)
+    assert ll.remove_all(1) == 2
+    assert ll.length == 3
+    assert not ll.contains(1)
+    assert ll.peek() == 2
+    assert ll.peek_last() == 4
+
+
+def test_ll_remove_all_multiple_occurrences_in_row():
+    ll = LinkedList()
+
+    ll.append(2)
+    ll.append(1)
+    ll.append(1)
+    ll.append(3)
+    assert ll.remove_all(1) == 2
+    assert ll.length == 2
+    assert not ll.contains(1)
+    assert ll.peek() == 2
+    assert ll.peek_last() == 3
+
+
+def test_ll_remove_all_only_target():
+    ll = LinkedList()
+
+    ll.append(1)
+    ll.append(1)
+    ll.append(1)
+    ll.append(1)
+    assert ll.remove_all(1) == 4
+    assert ll.length == 0
+    assert not ll.contains(1)
+    assert ll.peek() is None
