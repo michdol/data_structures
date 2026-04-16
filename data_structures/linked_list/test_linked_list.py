@@ -212,3 +212,41 @@ def test_ll_remove_last_node_in_three_nodes_list():
     assert ll.head.data == 1
     assert isinstance(ll.head.next, Node)
     assert ll.head.next.data == 2
+
+
+def test_ll_contains_empty_list():
+    ll = LinkedList()
+
+    assert ll.contains(1) is False
+
+
+def test_ll_contains():
+    ll = LinkedList()
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+
+    assert ll.contains(1) is True
+    assert ll.contains(2) is True
+    assert ll.contains(3) is True
+    assert ll.contains(4) is False
+
+
+def test_ll_peek():
+    ll = LinkedList()
+
+    assert ll.peek() is None
+
+    ll.append(1)
+    assert ll.peek() == 1
+
+
+def test_ll_peek_last():
+    ll = LinkedList()
+
+    assert ll.peek_last() is None
+
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+    assert ll.peek_last() == 3

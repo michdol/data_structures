@@ -10,14 +10,18 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head: Node | None = None
-        self.length: int = 0
+        self._length: int = 0
+
+    @property
+    def length(self) -> int:
+        return self._length
 
     def prepend(self, data: Any):
         node = Node(data=data)
         if self.head:
             node.next = self.head
         self.head = node
-        self.length += 1
+        self._length += 1
 
     def append(self, data: Any):
         node = Node(data=data)
@@ -26,7 +30,7 @@ class LinkedList:
             last.next = node
         else:
             self.head = node
-        self.length += 1
+        self._length += 1
 
     def get_last(self) -> Node | None:
         node = self.head
@@ -40,7 +44,7 @@ class LinkedList:
         if self.head:
             data = self.head.data
             self.head = self.head.next
-            self.length -= 1
+            self._length -= 1
             return data
         return None
 
@@ -48,9 +52,9 @@ class LinkedList:
         if not self.head:
             return None
 
-        if self.length == 1:
+        if self._length == 1:
             data = self.head.data
-            self.length -= 1
+            self._length -= 1
             self.head = None
             return data
 
@@ -60,11 +64,8 @@ class LinkedList:
             previous = node
             node = node.next
         previous.next = None
-        self.length -= 1
+        self._length -= 1
         return node.data
-
-    def remove_all(self, data: Any) -> Any:
-        return None
 
     def remove(self, data: Any) -> Any:
         if not self.head:
@@ -73,7 +74,7 @@ class LinkedList:
         if self.head.data == data:
             data = self.head.data
             self.head = self.head.next
-            self.length -= 1
+            self._length -= 1
             return data
 
         node = self.head
@@ -88,5 +89,22 @@ class LinkedList:
             raise ValueError("Value not found")
 
         previous.next = node.next
-        self.length -= 1
+        self._length -= 1
         return node.data
+
+    def contains(self, data: Any) -> bool:
+        if not self.head:
+            return False
+        node = self.head
+        while node.next:
+            if node.data == data:
+                return True
+            node = node.next
+        return node.data == data
+
+    def peek(self) -> Any:
+        return self.head.data if self.head else None
+
+    def peek_last(self) -> Any:
+        last = self.get_last()
+        return last.data if last else None
