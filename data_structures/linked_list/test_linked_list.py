@@ -323,3 +323,18 @@ def test_ll_remove_all_only_target():
     assert ll.length == 0
     assert not ll.contains(1)
     assert ll.peek() is None
+
+
+def test_to_list_empty_list():
+    ll = LinkedList()
+
+    assert ll.to_list() == []
+
+
+def test_to_list():
+    ll = LinkedList()
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+
+    assert ll.to_list() == [1, 2, 3]

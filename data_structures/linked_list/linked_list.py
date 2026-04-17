@@ -129,3 +129,11 @@ class LinkedList:
             node = node.next
 
         return count
+
+    def to_list(self) -> list[Any]:
+        result = []
+        node = self.head
+        while node:
+            result.append(node.data)
+            node = node.next
+        return result
