@@ -338,3 +338,28 @@ def test_to_list():
     ll.append(3)
 
     assert ll.to_list() == [1, 2, 3]
+
+
+def test_deduplicate():
+    ll = LinkedList()
+    ll.append(1)
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+    ll.append(3)
+    ll.append(4)
+    ll.append(5)
+
+    ll.deduplicate()
+    assert ll.to_list() == [1, 2, 3, 4, 5]
+    assert ll.length == 5
+
+
+def test_deduplicate_single_value():
+    ll = LinkedList()
+    ll.append(1)
+    ll.append(1)
+
+    ll.deduplicate()
+    assert ll.to_list() == [1]
+    assert ll.length == 1

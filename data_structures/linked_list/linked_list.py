@@ -137,3 +137,17 @@ class LinkedList:
             result.append(node.data)
             node = node.next
         return result
+
+    def deduplicate(self) -> None:
+        """
+        Deduplicates the sorted LinkedList
+        """
+        node = self.head
+        previous = None
+        while node:
+            if previous and node.data == previous.data:
+                previous.next = node.next
+                self._length -= 1
+            else:
+                previous = node
+            node = node.next
