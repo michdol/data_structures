@@ -151,3 +151,28 @@ class LinkedList:
             else:
                 previous = node
             node = node.next
+
+    def sort(self, head: Node | None):
+        if not head or not head.next:
+            return head
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        mid = slow.next
+        slow.next = None
+
+        left = self.sort(head)
+        right = self.sort(mid)
+        return self.merge(left, right)
+
+    def merge(self, left: Node, right: Node) -> Node:
+        dummy = cur = Node(0)
+        while left and right:
+            if left.data < right.data:
+                cur.next, left = left, left.next
+            else:
+                cur.next, right = right, right.next
+            cur = cur.next
+        cur.next = left if left else right
+        return dummy.next

@@ -363,3 +363,48 @@ def test_deduplicate_single_value():
     ll.deduplicate()
     assert ll.to_list() == [1]
     assert ll.length == 1
+
+
+def test_sort_even():
+    ll = LinkedList()
+
+    ll.append(4)
+    ll.append(2)
+    ll.append(3)
+    ll.append(1)
+
+    ll.head = ll.sort(ll.head)
+
+    assert ll.to_list() == [1, 2, 3, 4]
+
+
+def test_sort_odd():
+    ll = LinkedList()
+
+    ll.append(7)
+    ll.append(1)
+    ll.append(5)
+    ll.append(9)
+    ll.append(2)
+
+    ll.head = ll.sort(ll.head)
+
+    assert ll.to_list() == [1, 2, 5, 7, 9]
+
+
+def test_sort_single_value():
+    ll = LinkedList()
+
+    ll.append(1)
+
+    ll.sort(ll.head)
+
+    assert ll.to_list() == [1]
+
+
+def test_sort_empty():
+    ll = LinkedList()
+
+    ll.sort(ll.head)
+
+    assert ll.to_list() == []
