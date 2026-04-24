@@ -408,3 +408,49 @@ def test_sort_empty():
     ll.sort(ll.head)
 
     assert ll.to_list() == []
+
+
+def test_ll_reverse_odd():
+    ll = LinkedList()
+
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+
+    ll.reverse()
+    assert ll.to_list() == [3, 2, 1]
+    assert ll.length == 3
+    assert ll.head.data == 3
+    assert ll.head.next.data == 2
+    assert ll.head.next.next.data == 1
+
+
+def test_ll_reverse_even():
+    ll = LinkedList()
+
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+    ll.append(4)
+
+    ll.reverse()
+    assert ll.to_list() == [4, 3, 2, 1]
+    assert ll.length == 4
+    assert ll.head.data == 4
+    assert ll.head.next.data == 3
+    assert ll.head.next.next.data == 2
+    assert ll.head.next.next.next.data == 1
+    assert ll.head.next.next.next.next is None
+
+
+def test_ll_reverse_single_node():
+    ll = LinkedList()
+
+    ll.append(1)
+
+
+def test_ll_reverse_empty_list():
+    ll = LinkedList()
+
+    ll.reverse()
+    assert ll.head is None

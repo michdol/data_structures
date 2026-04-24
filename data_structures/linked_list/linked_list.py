@@ -176,3 +176,16 @@ class LinkedList:
             cur = cur.next
         cur.next = left if left else right
         return dummy.next
+
+    def reverse(self):
+        if not self.head:
+            return
+        node = self.head
+        previous = None
+        while node:
+            next = node.next
+            node.next = previous
+            previous = node
+            node = next
+
+        self.head = previous
